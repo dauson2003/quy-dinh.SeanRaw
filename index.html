@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quy định & Chính sách — sean.raw</title>
+<style>
+  :root{
+    --ink:#0c0c0d;
+    --ink-soft:#161616;
+    --paper:#eae6dd;
+    --gold:#c9a35f;
+    --silver:#9a9a93;
+    --line: rgba(234,230,221,0.12);
+    --serif: 'Times New Roman', 'Iowan Old Style', Georgia, serif;
+    --sans: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  /* film grain overlay */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:50;
+    opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  header.hero{
+    min-height:78vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding: 6vh 6vw 5vh;
+    position:relative;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(ellipse at 70% 0%, rgba(201,163,95,0.10), transparent 55%),
+      var(--ink);
+  }
+  .eyebrow{
+    font-family:var(--sans);
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--silver);
+    display:flex; align-items:center; gap:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    display:inline-block;
+    width:28px; height:1px;
+    background:var(--gold);
+  }
+  .hero-title{
+    font-family:var(--serif);
+    font-weight:400;
+    font-style:italic;
+    font-size:clamp(2.6rem, 9vw, 6.2rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    margin:5vh 0 0;
+    color:var(--paper);
+  }
+  .hero-title em{
+    display:block;
+    font-style:normal;
+    color:var(--gold);
+    font-size:0.32em;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-family:var(--sans);
+    margin-top:1.2rem;
+  }
+  .hero-foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:2rem;
+    margin-top:6vh;
+    flex-wrap:wrap;
+  }
+  .hero-foot p{
+    max-width:34ch;
+    font-size:0.95rem;
+    line-height:1.6;
+    color:var(--silver);
+    margin:0;
+  }
+  .scroll-cue{
+    font-size:10px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--gold);
+    white-space:nowrap;
+  }
+
+  nav.index{
+    position:sticky;
+    top:0;
+    z-index:30;
+    background:rgba(12,12,13,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    overflow-x:auto;
+    padding: 0 6vw;
+    scrollbar-width:none;
+  }
+  nav.index::-webkit-scrollbar{display:none;}
+  nav.index a{
+    flex:0 0 auto;
+    text-decoration:none;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--silver);
+    padding: 1.1rem 1rem;
+    border-bottom:2px solid transparent;
+    transition:color .25s, border-color .25s;
+  }
+  nav.index a:hover{color:var(--paper); border-color:var(--gold);}
+
+  main{
+    max-width:1040px;
+    margin:0 auto;
+    padding: 0 6vw;
+  }
+
+  section.clause{
+    padding: 9vh 0;
+    border-bottom:1px solid var(--line);
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap: 4vw;
+  }
+  section.clause:last-of-type{border-bottom:none;}
+
+  .clause-mark{
+    position:relative;
+  }
+  .clause-num{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:4.4rem;
+    color:transparent;
+    -webkit-text-stroke:1px var(--gold);
+    line-height:1;
+    display:block;
+  }
+  .clause-label{
+    margin-top:0.8rem;
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--silver);
+  }
+
+  .clause-title{
+    font-family:var(--serif);
+    font-size:clamp(1.5rem, 3vw, 2.1rem);
+    font-weight:400;
+    margin:0 0 1.6rem;
+    color:var(--paper);
+  }
+  .clause-body p{
+    color:#cfcbc0;
+    line-height:1.75;
+    font-size:1rem;
+    margin:0 0 1rem;
+  }
+  .clause-body ul{
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .clause-body li{
+    position:relative;
+    padding-left:1.4rem;
+    margin-bottom:0.9rem;
+    color:#cfcbc0;
+    line-height:1.7;
+    font-size:0.98rem;
+  }
+  .clause-body li::before{
+    content:'—';
+    position:absolute; left:0; top:0;
+    color:var(--gold);
+  }
+  .clause-body strong{color:var(--paper); font-weight:600;}
+
+  /* pricing table feel */
+  .price-grid{
+    display:grid;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-bottom:1.6rem;
+  }
+  .price-row{
+    background:var(--ink);
+    display:grid;
+    grid-template-columns: 1fr auto;
+    gap:1rem;
+    align-items:baseline;
+    padding:1.1rem 1.3rem;
+  }
+  .price-row .name{color:var(--paper); font-size:0.98rem;}
+  .price-row .name small{display:block; color:var(--silver); font-size:0.82rem; margin-top:0.2rem;}
+  .price-row .amount{
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--gold);
+    font-size:1.25rem;
+    white-space:nowrap;
+  }
+
+  .commit{
+    padding: 11vh 6vw 12vh;
+    text-align:center;
+    background:linear-gradient(180deg, var(--ink) 0%, var(--ink-soft) 100%);
+    border-top:1px solid var(--line);
+  }
+  .commit blockquote{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(1.3rem, 3.2vw, 2rem);
+    line-height:1.5;
+    max-width:760px;
+    margin:0 auto 2.4rem;
+    color:var(--paper);
+  }
+  .commit .sig{
+    font-size:11px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  footer{
+    padding:3rem 6vw 4rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    flex-wrap:wrap;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--silver);
+  }
+
+  @media (max-width: 760px){
+    section.clause{grid-template-columns:1fr; gap:1.2rem;}
+    .clause-mark{display:flex; align-items:center; gap:1rem;}
+    .clause-num{font-size:2.6rem;}
+    .clause-label{margin-top:0;}
+    .price-row{grid-template-columns:1fr; gap:0.3rem;}
+    header.hero{min-height:auto; padding:8vh 6vw 6vh;}
+    .hero-foot{margin-top:5vh;}
+    nav.index a{padding:0.9rem 0.8rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="hero">
+  <div class="eyebrow">sean.raw — điều khoản dịch vụ</div>
+  <h1 class="hero-title">
+    Trước khi bấm máy,
+    <em>quy định & chính sách chụp ảnh</em>
+  </h1>
+  <div class="hero-foot">
+    <p>Tám điều khoản rõ ràng để buổi chụp của bạn diễn ra suôn sẻ — từ đặt lịch đến ngày nhận ảnh.</p>
+    <span class="scroll-cue">Cuộn xuống ↓</span>
+  </div>
+</header>
+
+<nav class="index" id="topnav">
+  <a href="#dieu-1">01 Bảng giá</a>
+  <a href="#dieu-2">02 Bảo mật ảnh</a>
+  <a href="#dieu-3">03 Sản phẩm</a>
+  <a href="#dieu-4">04 Thời gian</a>
+  <a href="#dieu-5">05 Đặt lịch</a>
+  <a href="#dieu-6">06 Hỗ trợ</a>
+  <a href="#dieu-7">07 Chi phí khác</a>
+  <a href="#dieu-8">08 Chỉnh sửa</a>
+</nav>
+
+<main>
+
+  <section class="clause" id="dieu-1">
+    <div class="clause-mark">
+      <span class="clause-num">01</span>
+      <span class="clause-label">Bảng giá</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Bảng giá dịch vụ</h2>
+      <div class="price-grid">
+        <div class="price-row">
+          <span class="name">Gói cá nhân cơ bản<small>02 giờ chụp · 01 khách hàng</small></span>
+          <span class="amount">300.000 ₫</span>
+        </div>
+        <div class="price-row">
+          <span class="name">Gói cá nhân tiêu chuẩn<small>04 giờ chụp · 01 khách hàng</small></span>
+          <span class="amount">500.000 ₫</span>
+        </div>
+        <div class="price-row">
+          <span class="name">Gói chụp nhóm<small>Theo số lượng thành viên, thời gian & yêu cầu cụ thể</small></span>
+          <span class="amount">Trao đổi</span>
+        </div>
+      </div>
+      <ul>
+        <li>Thời gian chụp phát sinh ngoài gói sẽ được tính phí theo <strong>thỏa thuận trước</strong> giữa hai bên.</li>
+        <li>Chi phí chụp nhóm được ưu đãi hơn so với tổng giá chụp riêng lẻ từng cá nhân.</li>
+        <li>Ưu tiên hỗ trợ giá cho nhóm bạn, lớp học, câu lạc bộ và khách hàng quay lại.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-2">
+    <div class="clause-mark">
+      <span class="clause-num">02</span>
+      <span class="clause-label">Bảo mật ảnh</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Chính sách bảo mật hình ảnh</h2>
+      <ul>
+        <li>Tất cả hình ảnh của khách hàng được <strong>bảo mật tuyệt đối</strong>.</li>
+        <li>Không đăng tải, chia sẻ hay sử dụng hình ảnh trên bất kỳ nền tảng nào nếu chưa có sự đồng ý của khách hàng.</li>
+        <li>Hình ảnh được lưu trữ <strong>30–60 ngày</strong> kể từ ngày bàn giao để hỗ trợ tải lại khi cần.</li>
+        <li>Khách hàng có quyền yêu cầu xóa toàn bộ dữ liệu ảnh sau khi đã nhận đủ sản phẩm.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-3">
+    <div class="clause-mark">
+      <span class="clause-num">03</span>
+      <span class="clause-label">Sản phẩm</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Sản phẩm bàn giao</h2>
+      <ul>
+        <li>Khách hàng nhận toàn bộ <strong>ảnh gốc</strong> đạt yêu cầu kỹ thuật trong buổi chụp.</li>
+        <li>Chỉnh sửa chuyên sâu <strong>05–10 ảnh</strong> chân dung cá nhân theo phong cách màu sắc thống nhất, tự nhiên và thẩm mỹ.</li>
+        <li>Nhu cầu chỉnh sửa số lượng nhiều hơn sẽ được trao đổi lại về thời gian hoàn thiện.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-4">
+    <div class="clause-mark">
+      <span class="clause-num">04</span>
+      <span class="clause-label">Thời gian</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Thời gian bàn giao ảnh</h2>
+      <ul>
+        <li>Ảnh chỉnh sửa được bàn giao trong vòng <strong>24 giờ</strong> kể từ khi kết thúc buổi chụp.</li>
+        <li>Yêu cầu chỉnh sửa thêm nhiều ảnh hoặc chỉnh sửa chuyên sâu có thể kéo dài thời gian hơn — sẽ được thông báo trước.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-5">
+    <div class="clause-mark">
+      <span class="clause-num">05</span>
+      <span class="clause-label">Đặt lịch</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Đặt lịch và xác nhận buổi chụp</h2>
+      <ul>
+        <li>Lịch chụp được xác nhận khi khách hàng liên hệ qua <strong>Zalo</strong>, thống nhất thời gian, địa điểm và đồng ý với các điều khoản trong bản quy định này.</li>
+        <li>Vui lòng thông báo sớm nếu cần thay đổi hoặc hủy lịch để thuận tiện sắp xếp công việc.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-6">
+    <div class="clause-mark">
+      <span class="clause-num">06</span>
+      <span class="clause-label">Hỗ trợ</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Hỗ trợ trong quá trình chụp</h2>
+      <ul>
+        <li>Hướng dẫn tạo dáng, biểu cảm và lựa chọn góc chụp phù hợp với từng khách hàng.</li>
+        <li>Không yêu cầu khách hàng có kinh nghiệm chụp ảnh trước đó.</li>
+        <li>Mục tiêu: một trải nghiệm thoải mái, tự nhiên và lưu giữ những khoảnh khắc đẹp nhất.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-7">
+    <div class="clause-mark">
+      <span class="clause-num">07</span>
+      <span class="clause-label">Chi phí khác</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Chi phí phát sinh</h2>
+      <ul>
+        <li>Vé vào cổng, thuê địa điểm, trang phục hoặc đạo cụ (nếu có) do khách hàng chi trả, trừ khi đã thống nhất trong gói dịch vụ.</li>
+        <li>Địa điểm xa hoặc ngoài khu vực thông thường có thể phát sinh <strong>phụ phí đi lại</strong>, sẽ được thông báo trước.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clause" id="dieu-8">
+    <div class="clause-mark">
+      <span class="clause-num">08</span>
+      <span class="clause-label">Chỉnh sửa</span>
+    </div>
+    <div class="clause-body">
+      <h2 class="clause-title">Chính sách chỉnh sửa ảnh</h2>
+      <ul>
+        <li>Được yêu cầu chỉnh sửa lại <strong>02 lần miễn phí</strong> đối với ảnh đã retouch.</li>
+        <li>Từ lần chỉnh sửa thứ ba, hoặc thay đổi nhiều so với phong cách ban đầu, có thể phát sinh phụ phí tùy mức độ công việc.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<section class="commit">
+  <blockquote>
+    "Tôi luôn mong muốn mang đến cho khách hàng một trải nghiệm chụp ảnh chuyên nghiệp, thân thiện và tôn trọng quyền riêng tư — mỗi bộ ảnh được thực hiện chỉn chu, đúng tiến độ, để lưu giữ những khoảnh khắc đẹp và ý nghĩa nhất."
+  </blockquote>
+  <div class="sig">— sean.raw</div>
+</section>
+
+<footer>
+  <span>sean.raw © 2026</span>
+  <span>Quy định có hiệu lực kể từ ngày xác nhận lịch chụp qua Zalo</span>
+</footer>
+
+</body>
+</html>
